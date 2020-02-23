@@ -16,8 +16,9 @@ import (
 
 // PluginUpgradeOption option for plugin list command
 type PluginUpgradeOption struct {
-	Filter []string
-	All    bool
+	Filter        []string
+	All           bool
+	AllCompatible bool
 
 	RoundTripper http.RoundTripper
 }
@@ -26,8 +27,12 @@ var pluginUpgradeOption PluginUpgradeOption
 
 func init() {
 	pluginCmd.AddCommand(pluginUpgradeCmd)
-	pluginUpgradeCmd.Flags().StringArrayVarP(&pluginUpgradeOption.Filter, "filter", "", []string{}, i18n.T("Filter for the list, like: name=foo"))
-	pluginUpgradeCmd.Flags().BoolVarP(&pluginUpgradeOption.All, "all", "", false, i18n.T("Upgrade all plugins for updated"))
+	pluginUpgradeCmd.Flags().StringArrayVarP(&pluginUpgradeOption.Filter, "filter", "", []string{},
+		i18n.T("Filter for the list, like: name=foo"))
+	pluginUpgradeCmd.Flags().BoolVarP(&pluginUpgradeOption.All, "all", "", false,
+		i18n.T("Upgrade all plugins for updated"))
+	pluginUpgradeCmd.Flags().BoolVarP(&pluginUpgradeOption.AllCompatible, "all-compatible", "", false,
+		i18n.T("Upgrade all compatible plugins"))
 
 }
 
